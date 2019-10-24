@@ -24,16 +24,17 @@ export async function getProduct(id) {
   });
 }
 
-export async function updateProduct(id) {
+export async function updateProduct(id, data) {
   return axiosApi({
     method: 'PUT',
     url: `${BASE}/${id}`,
+    data,
   });
 }
 
 export async function deleteProduct(id) {
   return axiosApi({
-    method: 'PUT',
+    method: 'DELETE',
     url: `${BASE}/${id}`,
   });
 }
