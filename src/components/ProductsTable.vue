@@ -21,10 +21,19 @@
             single-line
           ></v-text-field>
           <v-spacer></v-spacer>
-          <v-btn :to="{name: 'product-create'}" color="primary" dark class="mb-2">Add Product</v-btn>
+          <v-btn
+            :to="{ name: 'product-create' }"
+            color="primary"
+            dark
+            class="mb-2"
+            >Add Product</v-btn
+          >
         </v-toolbar>
       </template>
       <template v-slot:item.action="{ item }">
+        <v-icon class="mr-2" small @click="showProductItem = item">
+          info
+        </v-icon>
         <v-icon
           class="mr-2"
           small
@@ -48,22 +57,33 @@
         <v-btn color="primary" dark class="mb-2">Create Product</v-btn>
       </template>
     </v-data-table>
+    <v-dialog v-model="showProductDialog" max-width="500px">
+      <product-view v-if="showProductDialog" v-model="showProductItem"></product-view>
+    </v-dialog>
   </v-card>
 </template>
 
 <script>
 import { getAllProducts, deleteProduct } from '@/services/productsService';
+import ProductView from '@/components/ProductView';
 
 export default {
   name: 'ProductsTable',
+  components: { ProductView },
   data: () => ({
     loading: false,
     itemLoading: null,
-    dialog: false,
+    showProductDialog: false,
+    showProductItem: {},
     search: '',
     products: [],
     headers: [],
   }),
+  watch: {
+    showProductItem(item) {
+      this.showProductDialog = !!item.id;
+    },
+  },
   mounted() {
     this.getAll();
   },
