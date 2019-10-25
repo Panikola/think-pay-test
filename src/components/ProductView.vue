@@ -1,9 +1,5 @@
 <template>
-  <v-card
-    v-if="value"
-    :color="`#${value.code.replace(/-/g, '').slice(-6)}`"
-    dark
-  >
+  <v-card :color="`#${value.code.replace(/-/g, '').slice(-6)}`" dark>
     <div class="d-flex flex-no-wrap justify-space-between">
       <div>
         <v-card-title class="headline" v-text="value.name"></v-card-title>
@@ -14,7 +10,7 @@
         </v-card-text>
       </div>
       <v-avatar class="ma-3" tile size="150">
-        <v-img :src="`https://loremflickr.com/320/240/${value.name}`">
+        <v-img :src="`https://loremflickr.com/320/240/${value.name}`" :lazy-src="`https://loremflickr.com/320/240/${value.name}`">
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
               <v-progress-circular
