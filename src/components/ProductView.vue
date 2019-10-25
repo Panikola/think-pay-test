@@ -10,7 +10,10 @@
         </v-card-text>
       </div>
       <v-avatar class="ma-3" tile size="150">
-        <v-img :src="`https://loremflickr.com/320/240/${value.name}`" :lazy-src="`https://loremflickr.com/320/240/${value.name}`">
+        <v-img
+          :src="`https://loremflickr.com/320/240/${value.name}`"
+          :lazy-src="`https://loremflickr.com/g/320/240/${value.name}`"
+        >
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
               <v-progress-circular

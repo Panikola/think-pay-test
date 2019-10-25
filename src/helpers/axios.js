@@ -7,4 +7,11 @@ const defaulAxiosConfig = {
 
 export const axiosApi = axios.create(defaulAxiosConfig);
 
-axiosApi.interceptors.response.use(undefined, () => {});
+axiosApi.interceptors.response.use(
+  response => {
+    return response;
+  },
+  function(error) {
+    return Promise.reject(error.response);
+  }
+);

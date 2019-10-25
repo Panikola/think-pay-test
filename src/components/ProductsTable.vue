@@ -96,10 +96,10 @@ export default {
         } = await getAllProducts();
         this.products = data;
         this.generateHeaders(data);
-      } catch (e) {
+      } catch ({ data }) {
         this.$notify({
           group: 'product',
-          title: e ? e : 'request error',
+          title: data ? data.message : 'request error',
           type: 'error',
         });
       }
@@ -130,9 +130,9 @@ export default {
           title: `"${item.name}" deleted`,
           type: 'success',
         });
-      } catch (e) {
+      } catch ({ data }) {
         this.$notify({
-          title: e ? e : 'request error',
+          title: data ? data.message : 'request error',
           type: 'error',
         });
       }

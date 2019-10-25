@@ -10,7 +10,7 @@
       >created at {{ product.created_at }}</v-card-subtitle
     >
     <v-card-text>
-      <v-form ref="form" v-model="valid" >
+      <v-form ref="form" v-model="valid">
         <v-container>
           <v-row>
             <v-col cols="12" sm="6" md="4">
@@ -111,13 +111,15 @@ export default {
     async getProduct(id) {
       this.loading = true;
       try {
-        const { data } = await getProduct(id);
-        this.product = data.data;
-        this.title = data.data.name;
-      } catch (e) {
+        const {
+          data: { data },
+        } = await getProduct(id);
+        this.product = data;
+        this.title = data.name;
+      } catch ({ data }) {
         this.$notify({
           group: 'products',
-          title: e ? e : 'request error',
+          title: data ? data.message : 'request error',
           type: 'error',
         });
       }
@@ -126,34 +128,38 @@ export default {
     async update({ id, code, price, name }) {
       this.loading = true;
       try {
-        const response = await updateProduct(id, { code, price, name });
-        this.product = response.data.data;
-        this.title = response.data.data.name;
+        const {
+          data: { data },
+        } = await updateProduct(id, { code, price, name });
+        this.product = data;
+        this.title = data.name;
         this.$notify({
           title: `${this.title} updated`,
           type: 'success',
         });
-      } catch (e) {
+      } catch ({ data }) {
         this.$notify({
-          title: e ? e : 'request error',
+          title: data ? data.message : 'request error',
           type: 'error',
         });
       }
       this.loading = false;
     },
-    async create(data) {
+    async create(product) {
       this.loading = true;
       try {
-        const response = await createProduct(data);
-        this.product = response.data.data;
-        this.title = response.data.data.name;
+        const {
+          data: { data },
+        } = await createProduct(product);
+        this.product = data;
+        this.title = data.name;
         this.$notify({
           title: `${this.title} created`,
           type: 'success',
         });
-      } catch (e) {
+      } catch ({ data }) {
         this.$notify({
-          title: e ? e : 'request error',
+          title: data ? data.message : 'request error',
           type: 'error',
         });
       }
